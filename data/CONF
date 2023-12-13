@@ -1,0 +1,773 @@
+!Description of the config file for DE toolkit
+!*****************************************************************************
+!
+!Format of the file is compliant with the standard Open CASCADE resource files
+!Each key defines a sequence of either further keys.
+!Keys can be nested down to an arbitrary level.
+!
+!*****************************************************************************
+!DE_Wrapper
+!Priority vendor list. For every CAD format set indexed list of vendors
+global.priority.VRML :	 OCC 
+global.priority.IGES :	 OCC 
+global.priority.OBJ :	 OCC 
+global.priority.GLTF :	 OCC 
+global.priority.PLY :	 OCC 
+global.priority.STEP :	 OCC 
+global.priority.STL :	 OCC 
+!Global parameters. Used for all providers
+!Length scale unit value. Should be more the 0. Default value: 1.0(MM)
+global.general.length.unit :	 1
+!
+!*****************************************************************************
+!Configuration Node  Vendor: OCC Format: VRML
+!
+!Read parameters:
+!
+!
+!Set (override) file length units to convert from while reading the file, defined as scale factor for m (meters).
+!Default value: 1. Available values: positive double
+provider.VRML.OCC.read.file.unit :	 1
+!
+!
+!Set (override) file origin coordinate system to perform conversion during read.
+!Default value: Yup (1). { Zup (0) | Yup (1) }
+provider.VRML.OCC.read.file.coordinate.system :	 1
+!
+!
+!Set system origin coordinate system to perform conversion into during read.
+!Default value: Zup (0). Available values: { Zup (0) | Yup (1) }
+provider.VRML.OCC.read.system.coordinate.system :	 0
+!
+!
+!Set flag allowing partially read file content to be put into the XDE document.
+!Default value: 1("ON"). Available values: 0("OFF"), 1("ON")
+provider.VRML.OCC.read.fill.incomplete :	 1
+!
+!
+!Write parameters:
+!
+!
+!Setting up writer version.
+!Default value: 2. Available values: 1, 2
+provider.VRML.OCC.writer.version :	 2
+!
+!
+!Setting up representation
+!Default value: 1. Available values: 0(shaded), 1(wireframe), 2(both).
+provider.VRML.OCC.write.representation.type :	 1
+!
+!*****************************************************************************
+!
+!
+!*****************************************************************************
+!Configuration Node  Vendor: OCC Format: IGES
+!
+!Common parameters:
+!
+!
+!Manages the continuity of BSpline curves (IGES entities 106, 112 and 126) after translation to Open CASCADE Technology
+!Default value: 1. Available values: 0, 1, 2
+provider.IGES.OCC.read.iges.bspline.continuity :	 1
+!
+!
+!Reads the precision mode value
+!Default value: "File"(0). Available values: "File"(0), "User"(1)
+provider.IGES.OCC.read.precision.mode :	 0
+!
+!
+!This parameter gives the precision for shape construction when the read.precision.mode parameter value is 1
+!Default value: 0.0001. Available values: any real positive (non null) value
+provider.IGES.OCC.read.precision.val :	 0.0001
+!
+!
+!Defines the mode of applying the maximum allowed tolerance
+!Default value: "Preferred"(0). Available values: "Preferred"(0), "Forced"(1)
+provider.IGES.OCC.read.maxprecision.mode :	 0
+!
+!
+!Defines the maximum allowable tolerance (in internal units, which are specified in xstep.cascade.unit) of the shape
+!Default value: 1. Available values: any real positive (non null) value
+provider.IGES.OCC.read.maxprecision.val :	 1
+!
+!
+!Defines the using of BRepLib::SameParameter
+!Default value: "Off"(0). Available values: "Off"(0), "On"(0)
+provider.IGES.OCC.read.stdsameparameter.mode :	 0
+!
+!
+!Preference for the computation of curves in case of 2D/3D inconsistency in an entity which has both 2D and 3D representations.
+!Default value: "Default"(0). Available values: "Default"(0), "2DUse_Preferred"(2), "2DUse_Forced"(-2), "3DUse_Preferred"(3), "3DUse_Forced"(-3)
+provider.IGES.OCC.read.surfacecurve.mode :	 0
+!
+!
+!This parameter is used within the BRepLib::EncodeRegularity() function which is called for a shape read from an IGES or a STEP file at the end of translation process.This function sets the regularity flag of an edge in a shell when this edge is shared by two faces.This flag shows the continuity, which these two faces are connected with at that edge.
+!Default value (in degrees): 0.57295779513. Available values: <double>
+provider.IGES.OCC.read.encoderegularity.angle :	 0.572958
+!
+!
+!Read parameters:
+!
+!
+!If set to True, it affects the translation of bspline curves of degree 1 from IGES: these curves(which geometrically are polylines) are split by duplicated points, and the translator attempts to convert each of the obtained parts to a bspline of a higher continuity
+!Default value: "Off"(0). Available values: "Off"(0), "On"(1)
+provider.IGES.OCC.read.bspline.approxd1.mode :	 0
+!
+!
+!Defines the name of the resource file
+!Default value: "IGES". Available values: <string>
+provider.IGES.OCC.read.resource.name :	 IGES
+!
+!
+!Defines the name of the sequence of operators
+!Default value: "FromIGES". Available values: <string>
+provider.IGES.OCC.read.sequence :	 FromIGES
+!
+!
+!Parameter for reading fa-iled entities
+!Default value: "Off"(0). Available values: "Off"(0), "On"(1)
+provider.IGES.OCC.read.fau_lty.entities :	 0
+!
+!
+!Controls transferring invisible sub entities which logically depend on the grouping entities
+!Default value: "Off"(0). Available values: "Off"(0), "On"(1)
+provider.IGES.OCC.read.onlyvisible :	 0
+!
+!
+!Setting up the ColorMode parameter which is used to indicate read Colors or not
+!Default value: 1. Available values: 0, 1
+provider.IGES.OCC.read.color :	 1
+!
+!
+!Setting up the NameMode parameter which is used to indicate read Names or not
+!Default value: 1. Available values: 0, 1
+provider.IGES.OCC.read.name :	 1
+!
+!
+!Setting up the LayerMode parameter which is used to indicate read Layers or not
+!Default value: 1. Available values: 0, 1
+provider.IGES.OCC.read.layer :	 1
+!
+!
+!Write parameters:
+!
+!
+!Flag to define entities type to write
+!Default value: "Faces"(0). Available values: "Faces"(0), "BRep"(1)
+provider.IGES.OCC.write.brep.mode :	 0
+!
+!
+!When writing to IGES in the BRep mode, this parameter indicates whether elementary surfaces(cylindrical, conical, spherical, and toroidal) are converted into corresponding IGES 5.3 entities(if the value of a parameter value is On), or written as surfaces of revolution(by default)
+!Default value: "Off"(0). Available values: "Off"(0), "On"(1)
+provider.IGES.OCC.write.convertsurface.mode :	 0
+!
+!
+!Allows choosing the unit. The default unit for Open CASCADE Technology is "MM" (millimeter).You can choose to write a file into any unit accepted by IGES
+!Default value: MM(2). Available values: "INCH"(1), "MM"(2), "??"(3), "FT"(4), "MI"(5), "M"(6), "KM"(7), "MIL"(8), "UM"(9), "CM"(10), "UIN"(11)
+provider.IGES.OCC.write.unit :	 2
+!
+!
+!Gives the name of the author of the file
+!Default value: {System name of the user}. Available values: <string>
+provider.IGES.OCC.write.header.author :	 
+!
+!
+!Gives the name of the sending company
+!Default value: (empty). Available values: <string>
+provider.IGES.OCC.write.header.company :	 
+!
+!
+!Gives the name of the sending product
+!Default value: "CAS.CADE IGES processor Vx.x"(where x.x means the current version of Open CASCADE Technology)Available values : <string>
+provider.IGES.OCC.write.header.product :	 
+!
+!
+!Gives the name of the receiving company
+!Default value: (empty). Available values: <string>
+provider.IGES.OCC.write.header.receiver :	 
+!
+!
+!Defines the name of the resource file
+!Default value: "IGES". Available values: <string>
+provider.IGES.OCC.write.resource.name :	 IGES
+!
+!
+!Defines the name of the sequence of operators
+!Default value: "To". Available values: <string>
+provider.IGES.OCC.write.sequence :	 ToIGES
+!
+!
+!Specifies the mode of writing the resolution value into the IGES file
+!Default value: Average(0). Available values: "Least"(-1), "Average"(0), "Greatest"(1), "Session"(2)
+provider.IGES.OCC.write.precision.mode :	 0
+!
+!
+!This parameter gives the resolution value for an IGES file when the write.precision.mode parameter value is 1
+!Default value: 0.0001. Available values: any real positive (non null) value
+provider.IGES.OCC.write.precision.val :	 0.0001
+!
+!
+!Writing planes mode
+!Default value: "Plane"(0). Available values: "Plane"(0), "BSpline"(1)
+provider.IGES.OCC.write.plane.mode :	 0
+!
+!
+!Writing offset curves like BSplines
+!Default value: "Off"(0). Available values: "Off"(0), "On"(1)
+provider.IGES.OCC.write.offset :	 0
+!
+!
+!Setting up the ColorMode parameter which is used to indicate write Colors or not
+!Default value: 1. Available values: 0, 1
+provider.IGES.OCC.write.color :	 1
+!
+!
+!Setting up the NameMode parameter which is used to indicate write Names or not
+!Default value: 1. Available values: 0, 1
+provider.IGES.OCC.write.name :	 1
+!
+!
+!Setting up the LayerMode parameter which is used to indicate write Layers or not
+!Default value: 1. Available values: 0, 1
+provider.IGES.OCC.write.layer :	 1
+!
+!*****************************************************************************
+!
+!
+!*****************************************************************************
+!Configuration Node  Vendor: OCC Format: OBJ
+!
+!Common parameters:
+!
+!
+!File length units to convert from while reading the file, defined as scale factor for m (meters)
+!Default value: 1.0(M)
+provider.OBJ.OCC.file.length.unit :	 1
+!
+!
+!System origin coordinate system to perform conversion into during read
+!Default value: 0(Zup). Available values: 0(Zup), 1(Yup)
+provider.OBJ.OCC.system.cs :	 0
+!
+!
+!File origin coordinate system to perform conversion during read
+!Default value: 1(Yup). Available values: 0(Zup), 1(Yup)
+provider.OBJ.OCC.file.cs :	 0
+!
+!
+!Read parameters:
+!
+!
+!Flag for reading vertex data with single or double floating point precision
+!Default value: 0(false). Available values: 0(false), 1(true)
+provider.OBJ.OCC.read.single.precision :	 0
+!
+!
+!Flag for create a single triangulation
+!Default value: 0(false). Available values: 0(false), 1(true)
+provider.OBJ.OCC.read.create.shapes :	 0
+!
+!
+!Root folder for generating root labels names
+!Default value: (empty). Available values: <path>
+provider.OBJ.OCC.read.root.prefix :	 
+!
+!
+!Flag for fill document from shape sequence
+!Default value: 1(true). Available values: 0(false), 1(true)
+provider.OBJ.OCC.read.fill.doc :	 1
+!
+!
+!Flag for fill the document with partially retrieved data even if reader has fa-iled with er-ror
+!Default value: 1(true). Available values: 0(false), 1(true)
+provider.OBJ.OCC.read.fill.incomplete :	 1
+!
+!
+!Memory usage limit(MiB)
+!Default value: -1(no limit). Available values: -1(no limit), any positive value
+provider.OBJ.OCC.read.memory.limit.mib :	 -1
+!
+!
+!Write parameters:
+!
+!
+!Export special comment
+!Default value: (empty). Available values: <string>
+provider.OBJ.OCC.write.comment :	 
+!
+!
+!Author of exported file name
+!Default value: (empty). Available values: <string>
+provider.OBJ.OCC.write.author :	 
+!
+!*****************************************************************************
+!
+!
+!*****************************************************************************
+!Configuration Node  Vendor: OCC Format: GLTF
+!
+!Common parameters:
+!
+!
+!File length units to convert from while reading the file, defined as scale factor for m (meters)
+!Default value: 1.0(M)
+provider.GLTF.OCC.file.length.unit :	 1
+!
+!
+!System origin coordinate system to perform conversion into during read
+!Default value: 0(Zup). Available values: 0(Zup), 1(Yup)
+provider.GLTF.OCC.system.cs :	 0
+!
+!
+!File origin coordinate system to perform conversion during read
+!Default value: 1(Yup). Available values: 0(Zup), 1(Yup)
+provider.GLTF.OCC.file.cs :	 0
+!
+!
+!Read parameters:
+!
+!
+!Flag for reading vertex data with single or double floating point precision
+!Default value: 1(true). Available values: 0(false), 1(true)
+provider.GLTF.OCC.read.single.precision :	 1
+!
+!
+!Flag for create a single triangulation
+!Default value: 0(false). Available values: 0(false), 1(true)
+provider.GLTF.OCC.read.create.shapes :	 0
+!
+!
+!Root folder for generating root labels names
+!Default value: (empty). Available values: <path>
+provider.GLTF.OCC.read.root.prefix :	 
+!
+!
+!Flag for fill document from shape sequence
+!Default value: 1(true). Available values: 0(false), 1(true)
+provider.GLTF.OCC.read.fill.doc :	 1
+!
+!
+!Flag for fill the document with partially retrieved data even if reader has fa-iled with er-ror
+!Default value: 1(true). Available values: 0(false), 1(true)
+provider.GLTF.OCC.read.fill.incomplete :	 1
+!
+!
+!Memory usage limit(MiB)
+!Default value: -1(no limit). Available values: -1(no limit), any positive value
+provider.GLTF.OCC.read.memory.limit.mib :	 -1
+!
+!
+!Flag to use multithreading
+!Default value: 0(false). Available values: 0(false), 1(true)
+provider.GLTF.OCC.read.parallel :	 0
+!
+!
+!Flag to ignore nodes without Geometry
+!Default value: 1(true). Available values: 0(false), 1(true)
+provider.GLTF.OCC.read.skip.empty.nodes :	 1
+!
+!
+!Flag to load all scenes in the document
+!Default value: 0(false). Available values: 0(false), 1(true)
+provider.GLTF.OCC.read.load.all.scenes :	 0
+!
+!
+!Flag to use Mesh name in case if Node name is empty
+!Default value: 1(true). Available values: 0(false), 1(true)
+provider.GLTF.OCC.read.use.mesh.name.as.fallback :	 1
+!
+!
+!Flag to skip triangulation loading
+!Default value: 0(false). Available values: 0(false), 1(true)
+provider.GLTF.OCC.read.skip.late.data.loading :	 0
+!
+!
+!Flag to keep information about deferred storage to load/unload triangulation later
+!Default value: 1(true). Available values: 0(false), 1(true)
+provider.GLTF.OCC.read.keep.late.data :	 1
+!
+!
+!Flag to print additional debug information
+!Default value: 0(false). Available values: 0(false), 1(true)
+provider.GLTF.OCC.read.print.debug.message :	 0
+!
+!
+!Write parameters:
+!
+!
+!Export special comment
+!Default value: (empty). Available values: <string>
+provider.GLTF.OCC.write.comment :	 
+!
+!
+!Author of exported file name
+!Default value: (empty). Available values: <string>
+provider.GLTF.OCC.write.author :	 
+!
+!
+!Transformation format to write into glTF file
+!Default value: 0(Compact). Available values: 0(Compact), 1(Mat4), 2(TRS)
+provider.GLTF.OCC.write.trsf.format :	 0
+!
+!
+! Name format for exporting Nodes
+!Default value: 3(InstanceOrProduct). Available values: 0(Compact), 1(Mat4), 2(TRS), 3(InstanceOrProduct), 4(ProductOrInstance), 5(ProductAndInstance), 6(ProductAndInstanceAndOcaf)
+provider.GLTF.OCC.write.node.name.format :	 3
+!
+!
+!Name format for exporting Meshes
+!Default value: 1(Product). Available values: 0(Compact), 1(Mat4), 2(TRS), 3(InstanceOrProduct), 4(ProductOrInstance), 5(ProductAndInstance), 6(ProductAndInstanceAndOcaf)
+provider.GLTF.OCC.write.mesh.name.format :	 1
+!
+!
+!Export UV coordinates even if there are no mapped texture
+!Default value: 0(false). Available values: 0(false), 1(true)
+provider.GLTF.OCC.write.forced.uv.export :	 0
+!
+!
+!Flag to write image textures into GLB file
+!Default value: 1(true). Available values: 0(false), 1(true)
+provider.GLTF.OCC.write.embed.textures.in.glb :	 1
+!
+!
+!Flag to merge faces within a single part
+!Default value: 0(false). Available values: 0(false), 1(true)
+provider.GLTF.OCC.write.merge.faces :	 0
+!
+!
+!Flag to prefer keeping 16-bit indexes while merging face
+!Default value: 0(false). Available values: 0(false), 1(true)
+provider.GLTF.OCC.write.split.indices16 :	 0
+!
+!*****************************************************************************
+!
+!
+!*****************************************************************************
+!Configuration Node  Vendor: OCC Format: PLY
+!
+!Common parameters:
+!
+!
+!File length units to convert from while reading the file, defined as scale factor for m (meters)
+!Default value: 1.0(MM)
+provider.PLY.OCC.file.length.unit :	 1
+!
+!
+!System origin coordinate system to perform conversion into during read
+!Default value: 0(Zup). Available values: 0(Zup), 1(Yup)
+provider.PLY.OCC.system.cs :	 0
+!
+!
+!File origin coordinate system to perform conversion during read
+!Default value: 1(Yup). Available values: 0(Zup), 1(Yup)
+provider.PLY.OCC.file.cs :	 0
+!
+!
+!Write parameters:
+!
+!
+!Flag for write normals
+!Default value: 1(true). Available values: 0(false), 1(true)
+provider.PLY.OCC.write.normals :	 1
+!
+!
+!Flag for write colors
+!Default value: 1(true). Available values: 0(false), 1(true)
+provider.PLY.OCC.write.colors :	 1
+!
+!
+!Flag for write UV / texture coordinates
+!Default value: 0(false). Available values: 0(false), 1(true)
+provider.PLY.OCC.write.tex.coords :	 0
+!
+!
+!Flag for write part Id as element attribute
+!Default value: 1(true). Available values: 0(false), 1(true)
+provider.PLY.OCC.write.part.id :	 1
+!
+!
+!Flag for write face Id as element attribute. Cannot be combined with HasPartId
+!Default value: 0(false). Available values: 0(false), 1(true)
+provider.PLY.OCC.write.face.id :	 0
+!
+!
+!Export special comment
+!Default value: (empty). Available values: <string>
+provider.PLY.OCC.write.comment :	 
+!
+!
+!Author of exported file name
+!Default value: (empty). Available values: <string>
+provider.PLY.OCC.write.author :	 
+!
+!*****************************************************************************
+!
+!
+!*****************************************************************************
+!Configuration Node  Vendor: OCC Format: STEP
+!
+!Common parameters:
+!
+!
+!Manages the continuity of BSpline curves (IGES entities 106, 112 and 126) after translation to Open CASCADE Technology
+!Default value: 1. Available values: 0, 1, 2
+provider.STEP.OCC.read.iges.bspline.continuity :	 1
+!
+!
+!Reads the precision mode value
+!Default value: "File"(0). Available values: "File"(0), "User"(1)
+provider.STEP.OCC.read.precision.mode :	 0
+!
+!
+!This parameter gives the precision for shape construction when the read.precision.mode parameter value is 1
+!Default value: 0.0001. Available values: any real positive (non null) value
+provider.STEP.OCC.read.precision.val :	 0.0001
+!
+!
+!Defines the mode of applying the maximum allowed tolerance
+!Default value: "Preferred"(0). Available values: "Preferred"(0), "Forced"(1)
+provider.STEP.OCC.read.maxprecision.mode :	 0
+!
+!
+!Defines the maximum allowable tolerance (in internal units, which are specified in xstep.cascade.unit) of the shape
+!Default value: 1. Available values: any real positive (non null) value
+provider.STEP.OCC.read.maxprecision.val :	 1
+!
+!
+!Defines the using of BRepLib::SameParameter
+!Default value: "Off"(0). Available values: "Off"(0), "On"(1)
+provider.STEP.OCC.read.stdsameparameter.mode :	 0
+!
+!
+!Preference for the computation of curves in case of 2D/3D inconsistency in an entity which has both 2D and 3D representations.
+!Default value: "Default"(0). Available values: "Default"(0), "2DUse_Preferred"(2), "2DUse_Forced"(-2), "3DUse_Preferred"(3), "3DUse_Forced"(-3)
+provider.STEP.OCC.read.surfacecurve.mode :	 0
+!
+!
+!This parameter is used within the BRepLib::EncodeRegularity() function which is called for a shape read from an IGES or a STEP file at the end of translation process.This function sets the regularity flag of an edge in a shell when this edge is shared by two faces.This flag shows the continuity, which these two faces are connected with at that edge.
+!Default value (in degrees): 0.57295779513. Available values: <double>
+provider.STEP.OCC.read.encoderegularity.angle :	 0.572958
+!
+!
+!Indicates what angle units should be used when a STEP file is read
+!Default value: "File"(0). Available values: "File"(0), "Rad"(1), "Deg"(2)
+provider.STEP.OCC.angleunit.mode :	 0
+!
+!
+!Read Parameters:
+!
+!
+!Defines the name of the resource file
+!Default value: "STEP". Available values: <string>
+provider.STEP.OCC.read.resource.name :	 STEP
+!
+!
+!Defines name of the sequence of operators
+!Default value: "FromSTEP". Available values: <string>
+provider.STEP.OCC.read.sequence :	 FromSTEP
+!
+!
+!Defines the approach used for selection of top-level STEP entities for translation, and for recognition of assembly structures
+!Default value: 1("ON"). Available values: 0("OFF"), 1("ON")
+provider.STEP.OCC.read.product.mode :	 1
+!
+!
+!When reading AP 209 STEP files, allows selecting either only 'design' or 'analysis', or both types of products for translation
+!Default value: 1("all"). Available values: 1("all"), 2("design"), 3("analysis")
+provider.STEP.OCC.read.product.context :	 1
+!
+!
+!Specifies preferred type of representation of the shape of the product, in case if a STEP file contains more than one representation(i.e.multiple PRODUCT_DEFINITION_SHAPE entities) for a single product
+!Default value: 1("All"). Available values: 1("All"), 2("ABSR"), 3("MSSR"), 4("GBSSR"), 5("FBSR"), 6("EBWSR"), 7("GBWSR")
+provider.STEP.OCC.read.shape.repr :	 1
+!
+!
+!Defines whether tessellated shapes should be translated!Default value: 1("On"). Available values: 0("OFF"), 2("OnNoBRep")
+provider.STEP.OCC.read.tessellated :	 1
+!
+!
+!Specifies which data should be read for the products found in the STEP file
+!Default value: 1("All"). Available values: 1("All"), 2("assembly"),3("structure"), 4("shape")
+provider.STEP.OCC.read.assembly.level :	 1
+!
+!
+!Defines whether shapes associated with the main SHAPE_DEFINITION_REPRESENTATION entityof the product via SHAPE_REPRESENTATIONSHIP_RELATION should be translated
+!Default value: 1("ON"). Available values: 0("OFF"), 1("ON")
+provider.STEP.OCC.read.shape.relationship :	 1
+!
+!
+!Defines whether shapes associated with the PRODUCT_DEFINITION_SHAPE entity of the product via SHAPE_ASPECT should be translated.
+!Default value: 1("ON"). Available values: 0("OFF"), 1("ON")
+provider.STEP.OCC.read.shape.aspect :	 1
+!
+!
+!Boolean flag regulating translation of "CONSTRUCTIVE_GEOMETRY_REPRESENTATION_RELATIONSHIP" entities that define position of constructive geometry entities contained in "CONSTRUCTIVE_GEOMETRY_REPRESENTATION" with respect to the main representation of the shape (product).
+!Default value: 0("OFF"). Available values: 0("OFF"), 1("ON")
+provider.STEP.OCC.read.constructivegeom.relationship :	 0
+!
+!
+!Indicates whether to read sub-shape names from 'Name' attributes of STEP Representation Items
+!Default value: 0("OFF"). Available values: 0("OFF"), 1("ON")
+provider.STEP.OCC.read.stepcaf.subshapes.name :	 0
+!
+!
+!STEP file encoding for names translation
+!Default value: 4("UTF8"). Available values: 0("SJIS"), 1("EUC"), 2("NoConversion"), 3("GB"), 4("UTF8"), 5("SystemLocale"), 6("CP1250"), 7("CP1251"), 8("CP1252"), 9("CP1253"), 10("CP1254"), 11("CP1255"), 12("CP1256"), 13("CP1257"), 14("CP1258"), 15("iso8859-1"), 16("iso8859-2"), 17("iso8859-3"), 18("iso8859-4"), 19("iso8859-5"), 20("iso8859-6"), 21("iso8859-7"), 22("iso8859-8"), 23("iso8859-9"), 24("CP850")
+provider.STEP.OCC.read.codepage :	 4
+!
+!
+!Non-manifold topology reading
+!Default value: 0("OFF"). Available values: 0("OFF"), 1("ON")
+provider.STEP.OCC.read.nonmanifold :	 0
+!
+!
+!I-Deas-like STEP processing
+!Default value: 0("OFF"). Available values: 0("OFF"), 1("ON")
+provider.STEP.OCC.read.ideas :	 0
+!
+!
+!Parameter to read all top level solids and shells
+!Default value: 0("OFF"). Available values: 0("OFF"), 1("ON")
+provider.STEP.OCC.read.all.shapes :	 0
+!
+!
+!Mode to variate apply or not transformation placed in the root shape representation.
+!Default value: 1("ON"). Available values: 0("OFF"), 1("ON")
+provider.STEP.OCC.read.root.transformation :	 1
+!
+!
+!Setting up the read.colo parameter which is used to indicate read Colors or not
+!Default value: +. Available values: "-", "+"
+provider.STEP.OCC.read.color :	 1
+!
+!
+!Setting up the read.name parameter which is used to indicate read Names or not
+!Default value: +. Available values: "-", "+"
+provider.STEP.OCC.read.name :	 1
+!
+!
+!Setting up the read.layer parameter which is used to indicate read Layers or not
+!Default value: +. Available values: "-", "+"
+provider.STEP.OCC.read.layer :	 1
+!
+!
+!Setting up the read.props parameter which is used to indicate read Validation properties or not
+!Default value: +. Available values: "-", "+"
+provider.STEP.OCC.read.props :	 1
+!
+!
+!Write Parameters:
+!
+!
+!Writes the precision value
+!Default value: "Average"(0). Available values: "Least"(-1), "Average"(0), "Greatest"(1), "Session"(2)
+provider.STEP.OCC.write.precision.mode :	 0
+!
+!
+!A user-defined precision value
+!Default value: 0.0001. Available values: any real positive (non null) value
+provider.STEP.OCC.write.precision.val :	 0.0001
+!
+!
+!Writing assembly mode
+!Default value: 0("Off"). Available values: 0("Off"), 1("On"), 2("Auto")
+provider.STEP.OCC.write.assembly :	 0
+!
+!
+!Defines the version of schema used for the output STEP file
+!Default value: 1 or AP214CD. Available values: 1 or AP214CD, 2 or AP214DIS, 3 or AP203, 4 or AP214IS, 5 or AP242DIS
+provider.STEP.OCC.write.schema :	 1
+!
+!
+!Defines whether tessellated shapes should be translated!Default value: 2("OnNoBRep"). Available values: 0("OFF"), 1("On")
+provider.STEP.OCC.write.tessellated :	 2
+!
+!
+!Defines the text string that will be used for field 'name' of PRODUCT entities written to the STEP file
+!Default value: OCCT STEP translator (current OCCT version number). Available values: <string>
+provider.STEP.OCC.write.product.name :	 
+!
+!
+!This parameter indicates whether parametric curves should be written into the STEP file
+!Default value: 1("ON"). Available values: 0("OFF"), 1("ON")
+provider.STEP.OCC.write.surfacecurve.mode :	 1
+!
+!
+!Defines a unit in which the STEP file should be written.
+!Default value: MM(2). Available values: "INCH"(1), "MM"(2), "??"(3), "FT"(4), "MI"(5), "M"(6), "KM"(7), "MIL"(8), "UM"(9), "CM"(10), "UIN"(11)
+provider.STEP.OCC.write.unit :	 2
+!
+!
+!Defines the name of the resource file
+!Default value: "STEP". Available values: <string>
+provider.STEP.OCC.write.resource.name :	 STEP
+!
+!
+!Defines name of the sequence of operators
+!Default value: "ToSTEP". Available values: <string>
+provider.STEP.OCC.write.sequence :	 ToSTEP
+!
+!
+!This parameter indicates which of free vertices writing mode is switch on
+!Default value: 0("One Compound"). Available values: 0("One Compound"), 1("Signle Vertex")
+provider.STEP.OCC.write.vertex.mode :	 0
+!
+!
+!Indicates whether to write sub-shape names to 'Name' attributes of STEP Representation Items
+!Default value: 0("OFF"). Available values: 0("OFF"), 1("ON")
+provider.STEP.OCC.write.stepcaf.subshapes.name :	 0
+!
+!
+!Setting up the write.colo parameter which is used to indicate write Colors or not
+!Default value: +. Available values: "-", "+"
+provider.STEP.OCC.write.color :	 1
+!
+!
+!Setting up the write.name parameter which is used to indicate write Names or not
+!Default value: +. Available values: "-", "+"
+provider.STEP.OCC.write.name :	 1
+!
+!
+!Setting up the write.layer parameter which is used to indicate write Layers or not
+!Default value: +. Available values: "-", "+"
+provider.STEP.OCC.write.layer :	 1
+!
+!
+!Setting up the write.props parameter which is used to indicate write Validation properties or not
+!Default value: +. Available values: "-", "+"
+provider.STEP.OCC.write.props :	 1
+!
+!
+!Setting up the Model Type which gives you the choice of translation mode for an Open CASCADE shape that is being translated to STEP
+!Default value: 0. Available values: 0, 1, 2, 3, 4
+provider.STEP.OCC.write.model.type :	 0
+!
+!*****************************************************************************
+!
+!
+!*****************************************************************************
+!Configuration Node  Vendor: OCC Format: STL
+!
+!Read parameters:
+!
+!
+!Input merge angle value
+!Default value (in degrees): 90.0. Angle should be within [0.0, 90.0] range
+provider.STL.OCC.read.merge.angle :	 90
+!
+!
+!Setting up Boundary Representation flag
+!Default value: false. Available values: "on", "off"
+provider.STL.OCC.read.brep :	 0
+!
+!
+!Write parameters:
+!
+!
+!Setting up writing mode (Ascii or Binary)
+!Default value: 1(Binary). Available values: 0(Ascii), 1(Binary)
+provider.STL.OCC.write.ascii :	 1
+!
+!*****************************************************************************
+!
+!*****************************************************************************
