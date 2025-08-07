@@ -108,7 +108,7 @@ bool Converter::LoadComponent(std::string theComp)
   }
   
   Message::SendFail() << "Could not open: [" << aLibNames[0] << "] or [" << aLibNames[1] << "]";
-  THE_COMPONENTS().emplace(theComp, true);
+  THE_COMPONENTS().emplace(theComp, false);
   return false;
 }
 
