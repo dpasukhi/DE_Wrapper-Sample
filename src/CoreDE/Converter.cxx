@@ -82,24 +82,34 @@ bool Converter::LoadComponent(std::string theComp)
   {
     return true;
   }
-  bool aRes = true;
+  
+  std::string aLibName = theComp;
+  std::string aExtension;
+  
 #ifdef _WIN32
-    theComp += ".dll";
+    aExtension = ".dll";
 #elif defined(__APPLE__)
-    theComp += ".dylib";
+    aExtension = ".dylib";
 #else
-    theComp += ".so";
-#endif  
-  OSD_SharedLibrary aSharedLibrary(theComp.c_str());
-  if (!aSharedLibrary.DlOpen(OSD_RTLD_LAZY))
+    aExtension = ".so";
+#endif
+
+  // Try both library naming conventions
+  std::vector<std::string> aLibNames = { aLibName + aExtension, "lib" + aLibName + aExtension };
+  
+  for (const auto& aName : aLibNames)
   {
-    Message::SendFail() << "Could not open: [" << theComp << "] " <<
-      " reason: " << aSharedLibrary.DlError();
-    THE_COMPONENTS().emplace(theComp, true);
-    aRes = false;
+    OSD_SharedLibrary aSharedLibrary(aName.c_str());
+    if (aSharedLibrary.DlOpen(OSD_RTLD_LAZY))
+    {
+      THE_COMPONENTS().emplace(theComp, true);
+      return true;
+    }
   }
-  THE_COMPONENTS().emplace(theComp, aRes);
-  return aRes;
+  
+  Message::SendFail() << "Could not open: [" << aLibNames[0] << "] or [" << aLibNames[1] << "]";
+  THE_COMPONENTS().emplace(theComp, false);
+  return false;
 }
 
 //================================================================
